@@ -56,19 +56,23 @@
                 </span>
               </a>
             </div>
-            <from class="search_form">
+            <form class="search_form">
               <input type="text" class="form-control" placeholder="Search here...">
               <button class="" type="submit">
                 <i class="fa fa-search" aria-hidden="true"></i>
               </button>
-            </from>
+            </form>
+            {{ dump(app.user) }}
             <div class="user_option_box">
-              <a href="" class="account-link">
+
+              {% if app.user %}               
+                <a href="{{ path('app_my_account') }}" class="account-link">
                 <i class="fa fa-user" aria-hidden="true"></i>
                 <span>
-                  My Account
+                  Mon compte
                 </span>
               </a>
+               {% endif %}
               <a href="" class="cart-link">
                 <i class="fa fa-shopping-cart" aria-hidden="true"></i>
                 <span>
@@ -85,7 +89,7 @@
           <nav class="navbar navbar-expand-lg custom_nav-container ">
             <a class="navbar-brand" href="index.html">
               <span>
-                Minics
+                Mimics
               </span>
             </a>
 
@@ -99,17 +103,37 @@
                   <a class="nav-link" href="{{ path('app_home') }}">Home<span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="{{ path('app_about') }}"> About</a>
+                  <a class="nav-link" href="{{ path('app_about') }}"> A propos</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="{{ path('app_products') }}">Products</a>
+                  <a class="nav-link" href="{{ path('app_products') }}">Accès à la boutique</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="{{ path('app_whyus') }}">Why Us</a>
+                  <a class="nav-link" href="{{ path('app_whyus') }}">Pourquoi nous</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="{{ path('app_testimonial') }}">Testimonial</a>
+                  <a class="nav-link" href="{{ path('app_testimonial') }}">Livre d'or</a>
                 </li>
+                {# $_SESSION['user'] #}
+                {% if not app.user %}                 
+                  <li class="nav-item">
+                    <a class="nav-link" href="{{ path('app_login') }}">Identifiez-vous</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('app_register') }}">Créer votre compte</a>
+                </li>
+                {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('app_logout') }}">Déconnexion</a>
+                </li>
+                {% endif %}
+
+                {# si l'utilisateur a un rôle garanti ROLE_ADMIN, on lui donne accès au lien vers le backOffice #}
+                {% if is_granted('ROLE_ADMIN') %}
+                      <li class="nav-item">
+                          <a class="nav-link" href="{{ path('app_admin')}}">BackOffice</a> 
+                      </li>
+                {% endif %} 
               </ul>
             </div>
           </nav>

@@ -32,7 +32,7 @@ final class AppController extends AbstractController
     }
 
     #[Route('/whyus', name: 'app_whyus')]
-    public function appwhyus(): Response
+    public function appWhyus(): Response
     {
         return $this->render('app/whyus.html.twig', [            
         ]);
@@ -46,9 +46,10 @@ final class AppController extends AbstractController
         ]);
     }
 
-
-
-
-
-
+    #[Route('/myaccount', name: 'app_my_account')]
+    public function appMyAccount(): Response
+    {
+        return $this->render('app/myaccount.html.twig', [            
+        ]);
+    }
 }
